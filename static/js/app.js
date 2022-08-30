@@ -1,5 +1,5 @@
 // import the data from data.js
-const tableDate = data;
+const tableData = data;
 
 // Refernce the HTML table using D2
 var tbody = d3.select("tbody");
@@ -26,47 +26,37 @@ function buildTable(data) {
 
 
 
+// using d3, function to listen for events, here filter on date
+function handleClick() {
+    
+    // selector string is the item we're telling d3 to look for; holding it in the date variable
+    let date = d3.select("#datetime").property("value");
+
+    // initialize the filtered table with the orig one
+    let filteredData = tableData;
+
+    // if statement for date filter
+    if (date) {
+        // filter the table based on date
+        // === is strict equality, == is loose equality
+        filteredData = filteredData.filter(row =>row.datetime === date);
+    };
+     // Rebuild the table using the filtered data
+    // @NOTE: If no date was entered, then filteredData will
+    // just be the original tableData.
+    buildTable(filteredData);
+};
+
+// this is the line that actually uses d3 to listen for the click and tells what to do
+d3.selectAll("#filter-btn").on("click", handleClick);
+
+// Build the table when the page loads
+buildTable(tableData);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Simple JavaScript console.log statement
-function printHello() {
-    console.log("Hello, world!");
-}
-
-
-
-
-function functionname(parameterinputs){
-
-}
-
-
-
-
-function listLoop(userList) {
-    for (var i = 0; i < userList.length; i++) {
-      console.log(userList[i]);
-    }
- }
+// function listLoop(userList) {
+//     for (var i = 0; i < userList.length; i++) {
+//       console.log(userList[i]);
+//     }
+//  }
